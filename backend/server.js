@@ -29,17 +29,18 @@ const port = process.env.PORT || 5000;
 
 app.use(helmet());
 // Allow requests from any origin (like React, mobile app,) with different ports
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5000",
-      "http://localhost:5173",
-      "https://product-service-provider.com",
-    ],
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    credentials: true,
-  })
-);
+app.use(cors());
+// app.use(
+//   cors({
+//     origin: [
+//       "http://localhost:5000",
+//       "http://localhost:5173",
+//       "https://producservicet--provider.com",
+//     ],
+//     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+//     credentials: true,
+//   })
+// );
 // 🔐 Apply rate limit: 50 requests per minute per IP
 const limiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute
