@@ -5,18 +5,37 @@ import mongoose from "mongoose";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import path from "path";
+import { fileURLToPath } from "url";
 
-const __dirname = path.resolve();
-dotenv.config();
 
 const app = express();
+
+// Serve static files from React
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const buildPath = path.join(__dirname, "frontend", "dist"); // or "build" if CRA
+
+
+
+
+app.use(express.static(buildPath));
+
+
+
+// const __dirname = path.resolve();
+dotenv.config();
+
 const port = process.env.PORT || 5000;
 
 app.use(helmet());
 // Allow requests from any origin (like React, mobile app,) with different ports
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://your-store.vercel.app"],
+    origin: [
+      "http://localhost:5000",
+      "http://localhost:5173",
+      "https://product-service-provider.com",
+    ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   })
@@ -34,7 +53,7 @@ app.use(limiter);
 
 app.use(express.json());
 
-const uri = process.env.ATLAS_URI;
+const uri = process.env.ATLAS_URI || "mongodb+srv://devuser:devUser@mydev.c4udgdc.mongodb.net/?retryWrites=true&w=majority&appName=mydev"
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -45,21 +64,21 @@ connection.once("open", () => {
   console.log("MongoDB database  connection established successfully");
 });
 
-// app.get("/", (req, res) => {
-//   res.status(200).json("Main Server Loaded");
-// });
-
 import router from "./routes/products.js";
 app.use("/products", router);
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/frontend/dist")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
-  });
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "/frontend/dist")));
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+//   });
+// }
+
+// Catch-all: serve index.html for unknown routes
+app.get("*", (req, res) => {
+  res.sendFile(path.join(buildPath, "index.html"));
+});
 
 app.listen(port, () => {
   console.log(`Server Running on Port ${port}`);
-  // console.log(`uri: ${uri}`);
 });

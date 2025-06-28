@@ -11,7 +11,7 @@ export const useProductStore = create((set) => ({
       return { success: false, message: "Please fill in all fields." };
     }
 
-    // console.log(newProduct)
+  
     try {
       //  /products is a proxy with value in vite.config
       const res = await axios.post("/products", newProduct);
@@ -38,7 +38,7 @@ export const useProductStore = create((set) => ({
   },
   deleteProduct: async (pid) => {
     const res = await axios.delete(`/products/${pid}`);
-    // const data = await res.json(); no need to parse with axios
+    
     // alert("state: "+res.data.success)
     if (res.data.success) {
       // update the ui immediately, without needing a refresh
@@ -55,8 +55,6 @@ export const useProductStore = create((set) => ({
     try {
       const res = await axios.patch(`/products/${pid}`, updatedProduct);
     
-      // console.log("Product: " , res.data.product);
-      // alert("Info: "+res.data.success);
       if (res.data.success) {
         // update the ui immediately, without needing a refresh
         set((state) => ({

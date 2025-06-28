@@ -59,9 +59,6 @@ const ProductCard = ({ product }) => {
       pid,
       updatedProduct
     );
-  //  await setProducts((prev) =>
-  //     prev.map((p) => (p._id === pid ? returnedProduct : p))
-  //   );
   
     onClose();
     if (!success) {

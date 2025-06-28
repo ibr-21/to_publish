@@ -39,7 +39,7 @@ const HomePage = () => {
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
-  // console.log("products", products);
+ 
 
   const handleMinChange = (val) => {
     const value = Number(val);

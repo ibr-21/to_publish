@@ -1,7 +1,7 @@
-import express from "express"; // Importing express router
-import Product from "../models/product.model.js"; // Importing the product model
+import express from "express"; 
+import Product from "../models/product.model.js"; 
 
-const router = express.Router(); // Creating a new router instance
+const router = express.Router(); 
 
 router.route("/").post(async (req, res) => {
   const product = req.body;
