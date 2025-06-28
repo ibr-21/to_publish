@@ -10,7 +10,7 @@ const app = express();
 // const __dirname = path.resolve();
 dotenv.config();
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 
 app.use(helmet());
 // Allow requests from any origin (like React, mobile app,) with different ports
@@ -28,9 +28,7 @@ app.use(limiter);
 
 app.use(express.json());
 
-const uri =
-  process.env.ATLAS_URI ||
-  "mongodb+srv://devuser:devUser@mydev.c4udgdc.mongodb.net/?retryWrites=true&w=majority&appName=mydev";
+const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
