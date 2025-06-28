@@ -44,6 +44,7 @@ connection.once("open", () => {
 import router from "./routes/products.js";
 app.use("/products", router);
 
-app.listen(port, () => {
-  console.log(`Server Running on Port ${port}`);
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`🚀 Server running on http://0.0.0.0:${PORT}`);
 });
