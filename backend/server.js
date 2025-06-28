@@ -29,8 +29,7 @@ app.use(limiter);
 app.use(express.json());
 
 const uri =
-  process.env.ATLAS_URI ||
-  "mongodb+srv://devuser:devUser@mydev.c4udgdc.mongodb.net/?retryWrites=true&w=majority&appName=mydev";
+  process.env.ATLAS_URI
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -44,7 +43,6 @@ connection.once("open", () => {
 import router from "./routes/products.js";
 app.use("/products", router);
 
-
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`🚀 Server running on http://0.0.0.0:${PORT}`);
 });
