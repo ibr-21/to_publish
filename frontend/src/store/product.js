@@ -31,7 +31,7 @@ export const useProductStore = create((set) => ({
   },
   fetchProducts: async () => {
     try {
-      const res = await axios.get("/products");
+      const res = await axios.get(api);
       set({ products: res.data });
     } catch (err) {
       console.log("Fail to fetch data: " + err);
