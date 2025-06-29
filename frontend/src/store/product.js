@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const api = "https://service-provider-kebp.onrender.com/products";
+const api  = "https://service-provider-kebp.onrender.com/products";
 export const useProductStore = create((set) => ({
   products: [],
   setProducts: (products) => set({ products }),
